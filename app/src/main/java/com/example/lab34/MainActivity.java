@@ -49,15 +49,21 @@ public class MainActivity extends AppCompatActivity implements onClickItemRecycl
         Adapter adapter = new Adapter(dataMongList,this);
         recyclerView.setAdapter(adapter);
 
+
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 //                Intent intent = new Intent(MainActivity.this, Main2.class);
 //                startActivity(intent);
-                callApi();
+
             }
         });
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        callApi();
     }
 
     @Override
@@ -66,27 +72,21 @@ public class MainActivity extends AppCompatActivity implements onClickItemRecycl
         startActivity(intent);
     }
 
-
     void callApi (){
-        Apiservide.apiservice.getdata().enqueue(new Callback<DataMong>() {
+        Apiservide.apiservice.getdata().enqueue(new Callback<List<com.example.lab34.model.DataMong>>() {
             @Override
-            public void onResponse(Call<DataMong> call, Response<DataMong> response) {
+            public void onResponse(Call<List<com.example.lab34.model.DataMong>> call, Response<List<com.example.lab34.model.DataMong>> response) {
                 Toast.makeText(MainActivity.this, "call thành công", Toast.LENGTH_SHORT).show();
-                DataMong dataMong = response.body();
-                if(dataMong != null){
-                    dataMongList.add(dataMong);
-                    Log.d("cccccccccc", String.valueOf(dataMongList.size()));
-                }
+
+                dataMongList = response.body();
+                Adapter adapter = new Adapter(dataMongList,MainActivity.this::onClickItem);
+                recyclerView.setAdapter(adapter);
             }
 
             @Override
-            public void onFailure(Call<DataMong> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "call như cc", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<List<com.example.lab34.model.DataMong>> call, Throwable t) {
 
             }
         });
     }
-
-
-
 }

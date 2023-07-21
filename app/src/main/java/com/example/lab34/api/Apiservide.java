@@ -4,6 +4,8 @@ import com.example.lab34.model.DataMong;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -19,5 +21,5 @@ public interface Apiservide {
             .create(Apiservide.class);
 
     @GET("danhsach/danhsach")
-    Call<DataMong> getdata();
+    Call<List<DataMong>> getdata();
 }

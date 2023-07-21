@@ -3,25 +3,33 @@ package com.example.lab34.model;
 public class DataMong {
     String name;
     String price;
-    String dess;
+    String des;
     String image;
 
-    TypeMong TypeMong;
+    TypeMong type;
 
-    public DataMong(String name, String price, String dess, String image, TypeMong TypeMong) {
+    public DataMong(String name, String price, String des, String image, TypeMong type) {
         this.name = name;
         this.price = price;
-        this.dess = dess;
+        this.des = des;
         this.image = image;
-        this.TypeMong = TypeMong;
+        this.type = type;
+    }
+
+    public String getDes() {
+        return des;
+    }
+
+    public void setDes(String des) {
+        this.des = des;
     }
 
     public TypeMong getType() {
-        return TypeMong;
+        return type;
     }
 
-    public void setType(TypeMong TypeMong) {
-        this.TypeMong = TypeMong;
+    public void setType(TypeMong type) {
+        this.type = type;
     }
 
     public String getName() {
@@ -40,13 +48,7 @@ public class DataMong {
         this.price = price;
     }
 
-    public String getDess() {
-        return dess;
-    }
 
-    public void setDess(String dess) {
-        this.dess = dess;
-    }
 
     public String getImage() {
         return image;
