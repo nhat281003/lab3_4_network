@@ -9,7 +9,9 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 public interface Apiservide {
     Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd HH:mm:ss").create();
@@ -22,4 +24,7 @@ public interface Apiservide {
 
     @GET("danhsach/danhsach")
     Call<List<DataMong>> getdata();
+
+    @DELETE("{objectId}")
+    Call<Void>deleteData(@Path("objectId") int objectId);
 }
