@@ -3,20 +3,22 @@ package com.example.lab34;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.lab34.api.onClickItemRecycleView;
+import com.example.lab34.model.DataMong;
+
 import java.util.List;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
-    private List<data> mData;
+    private List<DataMong> mData;
     private onClickItemRecycleView mListener;
 
-    public Adapter(List<data> data, onClickItemRecycleView listener) {
-        this.mData = data;
+    public Adapter(List<DataMong> DataMong, onClickItemRecycleView listener) {
+        this.mData = DataMong;
         this.mListener =  listener;
     }
 
@@ -33,8 +35,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        data data = mData.get(position);
-        holder.binData(String.valueOf(data));
+        DataMong DataMong = mData.get(position);
+        holder.binData(String.valueOf(DataMong));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
