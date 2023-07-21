@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:paddingHorizontal="10dp"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:textAlignment="center"
+        android:text="THÊM MỚI SẢN PHẦM"
+        android:textSize="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:layout_marginVertical="5dp"
+                android:padding="10dp"
+                android:background="@drawable/custom_edt"
+                android:hint="image"
+                android:id="@+id/edtImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:layout_marginVertical="5dp"
+                android:padding="10dp"
+                android:background="@drawable/custom_edt"
+                android:hint="name"
+                android:id="@+id/edtName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:layout_marginVertical="5dp"
+                android:padding="10dp"
+                android:background="@drawable/custom_edt"
+                android:hint="price"
+                android:id="@+id/edtPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:layout_marginVertical="5dp"
+                android:padding="10dp"
+                android:background="@drawable/custom_edt"
+                android:hint="description"
+                android:id="@+id/edtDesscrip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <Button
+            android:layout_gravity="bottom|center_vertical"
+            android:id="@+id/btnAdd2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Thêm mới +" />
+    </FrameLayout>
+</LinearLayout>
