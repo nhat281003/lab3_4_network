@@ -17,8 +17,9 @@ public class DataMong {
 
     TypeMong type;
 
-    public DataMong(String name, String price, String des, String image, TypeMong type) {
+    public DataMong(String name,String id, String price, String des, String image, TypeMong type) {
         this.name = name;
+        this.id = id;
         this.price = price;
         this.des = des;
         this.image = image;

@@ -1,9 +1,11 @@
 package com.example.lab34;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,12 +87,15 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                 dataMong1.setImage(edimage.getText().toString().trim());
                 dataMong1.setDes(edDes.getText().toString().trim());
                 Apiservide.apiservice.editData(dataMong.getId(), dataMong1).enqueue(new Callback<DataMong>() {
+                    @SuppressLint("NotifyDataSetChanged")
                     @Override
-                    public void onResponse(Call<DataMong> call, Response<DataMong> response) {
-                        MainActivity mainActivity = new MainActivity();
-                        mainActivity.callApi();
-                        Toast.makeText(v.getContext(), "Update thanh cong!", Toast.LENGTH_SHORT).show();
-                        notifyDataSetChanged();
+                    public void onResponse(@NonNull Call<DataMong> call, @NonNull Response<DataMong> response) {
+                       if(response.isSuccessful()){
+                           MainActivity mainActivity = new MainActivity();
+                           mainActivity.callApi();
+                           Toast.makeText(v.getContext(), "Update thanh cong!", Toast.LENGTH_SHORT).show();
+                           notifyDataSetChanged();
+                       }
                     }
 
                     @Override
@@ -118,13 +123,19 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+
                     Apiservide.apiservice.deleteData(dataMong.getId()).enqueue(new Callback<DataMong>() {
+                        @SuppressLint("NotifyDataSetChanged")
                         @Override
-                        public void onResponse(Call<DataMong> call, Response<DataMong> response) {
-                            MainActivity mainActivity = new MainActivity();
-                            mainActivity.callApi();
-                            Toast.makeText(v.getContext(), "delete thanh cong!", Toast.LENGTH_SHORT).show();
-                            notifyDataSetChanged();
+                        public void onResponse(Call<DataMong> call, @NonNull Response<DataMong> response) {
+                            if(response.isSuccessful()){
+                                Log.d("ccccccccccccccccc",dataMong.getId());
+                                MainActivity mainActivity = new MainActivity();
+                                mainActivity.callApi();
+                                Toast.makeText(v.getContext(), "delete thanh cong!", Toast.LENGTH_SHORT).show();
+
+                                notifyDataSetChanged();
+                            }
                         }
 
                         @Override
@@ -135,6 +146,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                 }
             });
             builder.show();
+
         });
 
     }
