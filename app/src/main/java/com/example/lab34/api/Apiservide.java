@@ -20,7 +20,7 @@ public interface Apiservide {
     Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd HH:mm:ss").create();
 
     Apiservide apiservice = new Retrofit.Builder()
-            .baseUrl("http://192.168.1.6:3000/")
+            .baseUrl("http://192.168.0.105:3000/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(Apiservide.class);
@@ -35,5 +35,5 @@ public interface Apiservide {
     Call<Void> editData(@Path("idsp") String id,@Body DataMong dataMong);
 
     @DELETE("danhsach/delete/{idsp}")
-    Call<Void> deleteData(@Path("idsp") String id);
+    Call<List<DataMong>> deleteData(@Path("idsp") String id);
 }

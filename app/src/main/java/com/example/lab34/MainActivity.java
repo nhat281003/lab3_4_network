@@ -26,7 +26,7 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity implements onClickItemRecycleView,InterCallAPI {
     RecyclerView recyclerView;
     Button btnAdd;
-    List<DataMong> dataMongList = new ArrayList<>();
+    public static  List<DataMong> dataMongList = new ArrayList<>();
     DataMong DataMong;
     ImageView img;
     Adapter adapter;
@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements onClickItemRecycl
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         adapter = new Adapter(this);
+        adapter.interCall(this::load);
         callApi();
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,9 +56,11 @@ public class MainActivity extends AppCompatActivity implements onClickItemRecycl
     public void callApi() {
         Apiservide.apiservice.getdata().enqueue(new Callback<List<com.example.lab34.model.DataMong>>() {
             @Override
-            public void onResponse(Call<List<com.example.lab34.model.DataMong>> call, Response<List<com.example.lab34.model.DataMong>> response) {
+            public void onResponse(Call<List<com.example.lab34.model.DataMong>> call,
+                                   Response<List<com.example.lab34.model.DataMong>> response) {
                 dataMongList = response.body();
                 adapter.setmData(dataMongList);
+                adapter.interCall(MainActivity.this::load);
                 adapter.notifyDataSetChanged();
                 recyclerView.setAdapter(adapter);
             }

@@ -1,6 +1,7 @@
 package com.example.lab34;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -71,6 +72,7 @@ public class Main2 extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<DataMong>> call, Throwable t) {
                 Toast.makeText(Main2.this, "Error: "+t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d("iii", t.getMessage());
             }
         });
     }

@@ -31,8 +31,14 @@ import retrofit2.Response;
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     Context context;
     private List<DataMong> mData;
-    InterCallAPI interCallAPI;
+
     private onClickItemRecycleView mListener;
+
+    public void interCall(InterCallAPI interCallAPI) {
+        this.interCallAPI = interCallAPI;
+    }
+
+    InterCallAPI interCallAPI;
 
     public void setmData(List<DataMong> mData){
         this.mData = mData;
@@ -95,6 +101,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                     public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                        if(response.isSuccessful()){
                            Toast.makeText(v.getContext(), "Update thanh cong!", Toast.LENGTH_SHORT).show();
+                           interCallAPI.load();
                            notifyDataSetChanged();
                            dialog.dismiss();
                        }
@@ -126,25 +133,22 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
-                    Apiservide.apiservice.deleteData(dataMong.get_id()).enqueue(new Callback<Void>() {
-                        @SuppressLint("NotifyDataSetChanged")
+                    Apiservide.apiservice.deleteData(dataMong.get_id()).enqueue(new Callback<List<DataMong>>() {
                         @Override
-                        public void onResponse(Call<Void> call, @NonNull Response<Void> response) {
-                            if(response.isSuccessful()){
-                                Log.d("ccccccccccccccccc",dataMong.get_id());
-                                MainActivity mainActivity = new MainActivity();
-                                mainActivity.callApi();
+                        public void onResponse(Call<List<DataMong>> call, Response<List<DataMong>> response) {
+//                                MainActivity.dataMongList = response.body();
+                                Log.d("ccccccccccccccccc",""+MainActivity.dataMongList.size());
                                 Toast.makeText(v.getContext(), "delete thanh cong!", Toast.LENGTH_SHORT).show();
-                                interCallAPI.load();
                                 notifyDataSetChanged();
-                            }
                         }
 
                         @Override
-                        public void onFailure(Call<Void> call, Throwable t) {
-                            Log.d("DELETE", t.getMessage());
+                        public void onFailure(Call<List<DataMong>> call, Throwable t) {
+
                         }
                     });
+
+                    interCallAPI.load();
                 }
             });
             builder.show();
