@@ -1,7 +1,16 @@
 package com.example.lab34.model;
 
 public class DataMong {
-    String name;
+    String name,id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     String price;
     String des;
     String image;
@@ -14,6 +23,9 @@ public class DataMong {
         this.des = des;
         this.image = image;
         this.type = type;
+    }
+
+    public DataMong() {
     }
 
     public String getDes() {

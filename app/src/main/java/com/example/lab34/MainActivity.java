@@ -1,19 +1,31 @@
 package com.example.lab34;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.lab34.api.Apiservide;
 import com.example.lab34.api.onClickItemRecycleView;
 import com.example.lab34.model.DataMong;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -43,7 +55,6 @@ public class MainActivity extends AppCompatActivity implements onClickItemRecycl
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, Main2.class);
                 startActivity(intent);
-
             }
         });
     }
@@ -54,20 +65,14 @@ public class MainActivity extends AppCompatActivity implements onClickItemRecycl
         callApi();
     }
 
-    @Override
-    public void onClickItem(int position) {
-        Intent intent = new Intent(MainActivity.this, DetailProduct.class);
-        startActivity(intent);
-    }
-
-    void callApi (){
+    public void callApi (){
         Apiservide.apiservice.getdata().enqueue(new Callback<List<com.example.lab34.model.DataMong>>() {
             @Override
             public void onResponse(Call<List<com.example.lab34.model.DataMong>> call, Response<List<com.example.lab34.model.DataMong>> response) {
                 Toast.makeText(MainActivity.this, "call thành công", Toast.LENGTH_SHORT).show();
 
                 dataMongList = response.body();
-                Adapter adapter = new Adapter(dataMongList, MainActivity.this);
+                Adapter adapter = new Adapter(dataMongList,MainActivity.this::onClickItem);
                 recyclerView.setAdapter(adapter);
             }
 
@@ -76,5 +81,10 @@ public class MainActivity extends AppCompatActivity implements onClickItemRecycl
 
             }
         });
+    }
+
+    @Override
+    public void onClickItem(int position) {
+
     }
 }

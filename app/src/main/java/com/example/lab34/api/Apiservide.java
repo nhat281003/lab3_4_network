@@ -9,8 +9,11 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface Apiservide {
@@ -25,6 +28,12 @@ public interface Apiservide {
     @GET("danhsach/danhsach")
     Call<List<DataMong>> getdata();
 
-    @DELETE("{objectId}")
-    Call<Void>deleteData(@Path("objectId") int objectId);
+    @POST("danhsach/add")
+    Call<List<DataMong>> addData(@Body DataMong dataMong);
+
+    @PUT("danhsach/edit/{id}")
+    Call<DataMong> editData(@Path("idsp") String id, DataMong dataMong);
+
+    @DELETE("danhsach/delete/{id}")
+    Call<DataMong> deleteData(@Path("idsp") String id);
 }
