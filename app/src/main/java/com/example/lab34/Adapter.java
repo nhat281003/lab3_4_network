@@ -31,6 +31,7 @@ import retrofit2.Response;
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     Context context;
     private List<DataMong> mData;
+    InterCallAPI interCallAPI;
     private onClickItemRecycleView mListener;
 
     public void setmData(List<DataMong> mData){
@@ -134,6 +135,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                                 MainActivity mainActivity = new MainActivity();
                                 mainActivity.callApi();
                                 Toast.makeText(v.getContext(), "delete thanh cong!", Toast.LENGTH_SHORT).show();
+                                interCallAPI.load();
                                 notifyDataSetChanged();
                             }
                         }
