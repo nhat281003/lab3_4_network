@@ -32,7 +32,7 @@ public class Main2 extends AppCompatActivity {
 
         initUi();//ánh xạ
         dataMongList = new ArrayList<>();
-        adapterMong = new Adapter(dataMongList);
+        adapterMong = new Adapter(this);
         btnAdd.setOnClickListener(v -> {
             addProduct();
         });
@@ -60,6 +60,7 @@ public class Main2 extends AppCompatActivity {
                     dataMongList = response.body();
                     if (dataMongList != null){
                         adapterMong.setmData(dataMongList);
+                        finish();
                     }
 
                 }else {

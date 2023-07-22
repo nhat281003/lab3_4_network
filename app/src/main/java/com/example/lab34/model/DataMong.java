@@ -1,29 +1,32 @@
 package com.example.lab34.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class DataMong {
-    String name,id;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
+    String _id;
+    String name;
     String price;
     String des;
     String image;
 
     TypeMong type;
 
-    public DataMong(String name,String id, String price, String des, String image, TypeMong type) {
+    public DataMong(String name, String _id, String price, String des, String image, TypeMong type) {
         this.name = name;
-        this.id = id;
+        this._id = _id;
         this.price = price;
         this.des = des;
         this.image = image;
         this.type = type;
+    }
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
     public DataMong() {
@@ -69,5 +72,17 @@ public class DataMong {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    @Override
+    public String toString() {
+        return "DataMong{" +
+                "name='" + name + '\'' +
+                ", id='" + _id + '\'' +
+                ", price='" + price + '\'' +
+                ", des='" + des + '\'' +
+                ", image='" + image + '\'' +
+                ", type=" + type +
+                '}';
     }
 }

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,6 +29,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
+    Context context;
     private List<DataMong> mData;
     private onClickItemRecycleView mListener;
 
@@ -36,16 +38,15 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         notifyDataSetChanged();
     }
 
-    public Adapter(List<DataMong> mData) {
-        this.mData = mData;
-        notifyDataSetChanged();
+    public Adapter(Context context) {
+        this.context = context;
     }
 
-    public Adapter(List<DataMong> DataMong, onClickItemRecycleView listener) {
-        this.mData = DataMong;
-        this.mListener =  listener;
-        notifyDataSetChanged();
-    }
+//    public Adapter(List<DataMong> DataMong, onClickItemRecycleView listener) {
+//        this.mData = DataMong;
+//        this.mListener =  listener;
+//        notifyDataSetChanged();
+//    }
 
     @NonNull
     @Override
@@ -86,21 +87,21 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                 dataMong1.setPrice(edprice.getText().toString().trim());
                 dataMong1.setImage(edimage.getText().toString().trim());
                 dataMong1.setDes(edDes.getText().toString().trim());
-                Apiservide.apiservice.editData(dataMong.getId(), dataMong1).enqueue(new Callback<DataMong>() {
+
+                Apiservide.apiservice.editData(dataMong.get_id(), dataMong1).enqueue(new Callback<Void>() {
                     @SuppressLint("NotifyDataSetChanged")
                     @Override
-                    public void onResponse(@NonNull Call<DataMong> call, @NonNull Response<DataMong> response) {
+                    public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                        if(response.isSuccessful()){
-                           MainActivity mainActivity = new MainActivity();
-                           mainActivity.callApi();
                            Toast.makeText(v.getContext(), "Update thanh cong!", Toast.LENGTH_SHORT).show();
                            notifyDataSetChanged();
+                           dialog.dismiss();
                        }
                     }
 
                     @Override
-                    public void onFailure(Call<DataMong> call, Throwable t) {
-
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        Log.d("AAA", t.getMessage());
                     }
                 });
 
@@ -124,23 +125,22 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
-                    Apiservide.apiservice.deleteData(dataMong.getId()).enqueue(new Callback<DataMong>() {
+                    Apiservide.apiservice.deleteData(dataMong.get_id()).enqueue(new Callback<Void>() {
                         @SuppressLint("NotifyDataSetChanged")
                         @Override
-                        public void onResponse(Call<DataMong> call, @NonNull Response<DataMong> response) {
+                        public void onResponse(Call<Void> call, @NonNull Response<Void> response) {
                             if(response.isSuccessful()){
-                                Log.d("ccccccccccccccccc",dataMong.getId());
+                                Log.d("ccccccccccccccccc",dataMong.get_id());
                                 MainActivity mainActivity = new MainActivity();
                                 mainActivity.callApi();
                                 Toast.makeText(v.getContext(), "delete thanh cong!", Toast.LENGTH_SHORT).show();
-
                                 notifyDataSetChanged();
                             }
                         }
 
                         @Override
-                        public void onFailure(Call<DataMong> call, Throwable t) {
-
+                        public void onFailure(Call<Void> call, Throwable t) {
+                            Log.d("DELETE", t.getMessage());
                         }
                     });
                 }
